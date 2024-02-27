@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+String openapi =  "5.3.2"
+
+sourceCompatibility = 1.8
+mainClassName="org.example.Main"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'io.javalin:javalin:5.6.1'
+    implementation "io.javalin:javalin-rendering:5.6.0"
+    implementation "org.slf4j:slf4j-simple:2.0.3"
+    implementation 'org.thymeleaf:thymeleaf:3.1.1.RELEASE'
+    implementation 'com.h2database:h2:2.1.214'
+
+
+    // //Agregando el OpenApi, ver https://github.com/javalin/javalin-openapi/wiki
+    annotationProcessor("io.javalin.community.openapi:openapi-annotation-processor:$openapi")
+    implementation("io.javalin.community.openapi:javalin-openapi-plugin:$openapi") // for /openapi route with JSON scheme
+    implementation("io.javalin.community.openapi:javalin-swagger-plugin:$openapi") // for Swagger UI
+    implementation("io.javalin.community.openapi:javalin-redoc-plugin:$openapi") // for ReDoc UI
+}
+
+test {
+    useJUnitPlatform()
+}
